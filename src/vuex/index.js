@@ -7,34 +7,41 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    dataPlayer: {}
+    dataPlayer: {},
+    isLogin: false
   },
   mutations: {
     getLogin (state, payload) {
       state.dataPlayer = payload
-      console.log(state.dataPlayer, 'ini dataplayer')
+      console.log(state.dataPlayer.id, 'ini dataplayer')
+    },
+    setLogin (state, payload) {
+      state.isLogin = payload
+      console.log(state.isLogin, 'set logiiin')
     }
   },
   actions: {
     signin ({ commit }) {
-      // return new Promise((resolve, reject) => {
       const provider = new firebase.auth.GoogleAuthProvider()
       provider.addScope('profile')
       provider.addScope('email')
       firebase.auth().signInWithPopup(provider)
-        .then((resultData) => {
-          const dataUser = {
-            id: resultData.user.uid,
-            name: resultData.user.displayName
+        .then((response) => {
+          let objUser = {
+            id: response.user.uid,
+            name: response.user.displayName,
+            image: response.user.photoURL
           }
-          console.log(resultData)
-          const jsonString = JSON.stringify(dataUser)
+          let jsonString = JSON.stringify(objUser)
           localStorage.setItem('firebase', jsonString)
-          commit('getLogin', dataUser)
-          // resolve()
+          commit('getLogin', objUser)
         })
         .catch(err => console.log(err))
-      // })
+    },
+    checkLogin ({ commit }) {
+      if (localStorage.getItem('firebase')) {
+        commit('setLogin', true)
+      }
     }
   }
 })

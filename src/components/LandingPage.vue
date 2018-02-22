@@ -11,7 +11,8 @@ import { mapActions } from 'vuex'
 export default {
   methods: {
     ...mapActions([
-      'signin'
+      'signin',
+      'checkLogin'
     ]),
     signinBtn () {
       this.signin()
@@ -20,6 +21,9 @@ export default {
         })
         .catch(err => console.log(err))
     }
+  },
+  created () {
+    this.checkLogin()
   }
 }
 </script>
