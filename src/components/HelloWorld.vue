@@ -84,12 +84,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods: {
+    ...mapActions([
+      'checkLogin'
+    ])
+  },
+  created () {
+    this.checkLogin()
   }
 }
 </script>
