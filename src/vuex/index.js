@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
+import router from '../router'
 // import axios from 'axios'
 
 Vue.use(Vuex)
@@ -12,8 +13,10 @@ const store = new Vuex.Store({
   },
   mutations: {
     getLogin (state, payload) {
+      let self =  this
       state.dataPlayer = payload
       console.log(state.dataPlayer.id, 'ini dataplayer')
+      router.push('home')
     },
     setLogin (state, payload) {
       state.isLogin = payload
@@ -32,9 +35,11 @@ const store = new Vuex.Store({
             name: response.user.displayName,
             image: response.user.photoURL
           }
+          console.log(this,'ini di indx')
           let jsonString = JSON.stringify(objUser)
           localStorage.setItem('firebase', jsonString)
           commit('getLogin', objUser)
+          // window.location('/home')
         })
         .catch(err => console.log(err))
     },

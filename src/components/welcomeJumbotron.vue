@@ -1,14 +1,30 @@
 <template>
   <div class="jumbotron">
   <p class="lead">
-    <a class="btn btn-primary btn-lg" style="font-family: retro" href="#" role="button">Create Room</a>
+    <input v-model="roomname" type="text" name="" placeholder="input room name !">
+    <a @click.prevent="addroom" class="btn btn-primary btn-lg" style="font-family: retro" href="#" role="button">Create Room</a>
   </p>
 </div>
 </template>
 
 <script>
+import {rooms} from '../firebase'
 export default {
-  name: 'welcomeJumbotron'
+  name: 'welcomeJumbotron',
+  data () {
+    return {
+      roomname: ''
+    }
+  },
+  methods : {
+    addroom () {
+      rooms.push({
+        room : this.roomname
+      }).then(() => {
+        this.roomname = ''
+      } )
+    }
+  }
 }
 </script>
 

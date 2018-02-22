@@ -12,3 +12,5 @@ const app = initializeApp({
 // firebase.initializeApp(config)
 
 export const db = app.database()
+export const users = db.ref('users')
+export const rooms = db.ref('room')
