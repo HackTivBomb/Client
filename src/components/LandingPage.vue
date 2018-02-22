@@ -1,16 +1,20 @@
 <template>
 <div class="bg">
   <div class="container btn-go">
-    <div @click="test" class="enjoy-css">I'M READY LET'S GO!</div>
+    <div @click="signinBtn" class="enjoy-css">I'M READY LET'S GO!</div>
   </div>
 </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   methods: {
-    test () {
-      alert('duar')
+    ...mapActions([
+      'signin'
+    ]),
+    signinBtn () {
+      this.signin()
     }
   }
 }
