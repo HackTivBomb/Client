@@ -15,6 +15,10 @@ export default {
     ]),
     signinBtn () {
       this.signin()
+        .then(() => {
+          this.$router.push({name: 'HelloWorld'})
+        })
+        .catch(err => console.log(err))
     }
   }
 }

@@ -17,24 +17,24 @@ const store = new Vuex.Store({
   },
   actions: {
     signin ({ commit }) {
-      return new Promise((resolve, reject) => {
-        const provider = new firebase.auth.GoogleAuthProvider()
-        provider.addScope('profile')
-        provider.addScope('email')
-        firebase.auth().signInWithPopup(provider)
-          .then((resultData) => {
-            const dataUser = {
-              id: resultData.user.uid,
-              name: resultData.user.displayName
-            }
-            console.log(resultData)
-            const jsonString = JSON.stringify(dataUser)
-            localStorage.setItem('firebase', jsonString)
-            commit('getLogin', dataUser)
-            resolve()
-          })
-          .catch(err => console.log(err))
-      })
+      // return new Promise((resolve, reject) => {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      provider.addScope('profile')
+      provider.addScope('email')
+      firebase.auth().signInWithPopup(provider)
+        .then((resultData) => {
+          const dataUser = {
+            id: resultData.user.uid,
+            name: resultData.user.displayName
+          }
+          console.log(resultData)
+          const jsonString = JSON.stringify(dataUser)
+          localStorage.setItem('firebase', jsonString)
+          commit('getLogin', dataUser)
+          // resolve()
+        })
+        .catch(err => console.log(err))
+      // })
     }
   }
 })
