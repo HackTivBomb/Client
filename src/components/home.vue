@@ -2,6 +2,7 @@
   <div>
       <h1 style="font-family:retro">
           WELCOME TO HACK!BOOM!
+          {{players.length}}
       </h1>
     <jumbotron/>
     <mainmenu/>
@@ -11,14 +12,24 @@
 <script>
 import navbar from '../components/navbar'
 import jumbotron from '../components/welcomeJumbotron.vue'
-import mainmenu from '../components/mainMenu.vue'
+import mainmenu from '../components/mainmenu.vue'
+import {users, rooms } from '../firebase'
+import { mapState } from 'vuex';
 export default {
   name: 'home',
   components: {
     navbar,
     jumbotron,
     mainmenu
-  }
+  },
+  computed: {
+    ...mapState([
+      'dataPlayer'
+    ])
+  },
+  firebase: {
+      players : users
+    }
 }
 </script>
 

@@ -5,9 +5,9 @@
         <div class="profile">
             <p>Hello... !</p>
             <div class="card">
-            <img src="https://tekno.makobar.com/wp-content/uploads/sites/3/2017/11/Super-Mario.jpg" alt="Avatar" style="width:100%">
+            <img :src="dataPlayer.image" style="height:400px">
             <div class="container">
-            <h4><p>Kizaru</p></h4>
+            <h4><p>{{dataPlayer.name}}</p></h4>
             <p>Architect & Engineer</p>
             </div>
         </div>
@@ -16,12 +16,12 @@
     <div class="col-md">
         <div class="playboard">
             <p>wanna play?</p>
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="boardprev">
-                    </div>
-                </div>
-            </div>
+            <ul>
+                <li v-for="(room,idx) of rooms" :key="room['.key']">
+                    <p>Room Name: {{room.room}}</p>
+                    <button @click="joinroom(room['.key'],idx)" >join</button>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-md">
@@ -33,12 +33,43 @@
 
 <script>
 import onlineuser from '../components/onlineuser.vue'
+import { mapState } from 'vuex';
+import { rooms } from '../firebase'
 export default {
   name: 'mainMenu',
   components: {
     onlineuser
+  },
+  data () {
+      return {
+          roomceker : '',
+      }
+  },
+  computed:{
+      ...mapState([
+          'dataPlayer'
+      ])
+  },
+  firebase: {
+      rooms : rooms,
+      cekroom : rooms
+  },
+  methods : {
+      joinroom (key,e) {
+          console.log(e,'ininin')
+          let a =  this.rooms.filter((x,idx) => idx == e)
+          console.log('aaaa',a['.key'])
+          if(e < 4 ){
+              console.log('masukkkkk')
+             let id = JSON.parse(localStorage.getItem('firebase')).id
+             let name = JSON.parse(localStorage.getItem('firebase')).name
+             rooms.child(key).child(id).set({player: name,bom:false})
+          }else {
+              alert('penuuhh ciy')
+          }
+        //   console.log('ini cek oom',cekroom)
+      }
   }
-
 }
 </script>
 
@@ -47,6 +78,9 @@ export default {
     font-family: 'retro' ;
     src: url('../assets/retro.ttf');
 }
+  ul {
+    list-style: none;
+  }
   .boardprev {
       background-color:white;
       height:20em;
