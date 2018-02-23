@@ -13,14 +13,14 @@
       <td>{{player.name}}</td>
       <td></td>
     </tr>
-    </tr>
+
   </tbody>
 </table>
 </template>
-
 <script>
-import {users, rooms } from '../firebase'
-export default {
+
+ import {users, rooms } from '../firebase'
+ export default {
   name: 'onlineuser',
   firebase: {
     players: users
