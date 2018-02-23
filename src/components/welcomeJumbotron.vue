@@ -2,15 +2,15 @@
   <div class="jumbotron">
   <p class="lead">
     <!-- <input v-model="roomname" type="text" name="" placeholder="input room name !"> -->
-    Player Joined: {{rooms.length}}<a v-if="rooms.length == 2" @click="startGame" class="btn btn-primary btn-lg" style="font-family: retro" href="#" role="button">START GAME</a>
+    Player Joined: {{rooms.length}}<a v-if="rooms.length == 3" @click="startGame" class="btn btn-primary btn-lg" style="font-family: retro" href="#" role="button">START GAME</a>
     <a v-else @click.prevent="enterRoom" class="btn btn-primary btn-lg" style="font-family: retro" href="#" role="button">ENTER ROOM</a>
   </p>
-  {{start}}
+  {{step}}
 </div>
 </template>
 
 <script>
-import {rooms, start} from '../firebase'
+import {rooms, step} from '../firebase'
 export default {
   name: 'welcomeJumbotron',
   data () {
@@ -21,11 +21,11 @@ export default {
   },
   firebase: {
     rooms: rooms,
-    start: start
+    step: step
   },
   watch: {
     playerjoin: function() {
-      console.log(this.playerjoin);
+      console.log(this.playerjoin)
       if (this.playerjoin == '2') {
         alert('yes')
       } else {
@@ -51,7 +51,7 @@ export default {
       localStorage.setItem('pj', this.rooms.length)
     },
     startGame () {
-      start.set({status:true})
+      step.set({status:true})
       this.playerjoin = this.rooms.length;
       console.log(this.playerjoin);
       this.$router.push('/room')

@@ -10,14 +10,12 @@
 </template>
 
 <script>
-import navbar from '../components/navbar'
 import jumbotron from '../components/welcomeJumbotron.vue'
 import mainmenu from '../components/mainmenu.vue'
 import PrepareGame from '@/components/PrepareGame'
 export default {
   name: 'home',
   components: {
-    navbar,
     jumbotron,
     mainmenu,
     PrepareGame
