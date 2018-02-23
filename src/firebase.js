@@ -14,3 +14,4 @@ const app = initializeApp({
 export const db = app.database()
 export const users = db.ref('users')
 export const rooms = db.ref('room')
+export const start = db.ref('step')
