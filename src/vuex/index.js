@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
 import router from '../router'
+import { users } from '../firebase'
 // import axios from 'axios'
 
 Vue.use(Vuex)
@@ -9,13 +10,19 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     dataPlayer: {},
-    isLogin: false
+    isLogin: false,
+    idroom: null
   },
   mutations: {
     getLogin (state, payload) {
       let self =  this
       state.dataPlayer = payload
       console.log(state.dataPlayer.id, 'ini dataplayer')
+      let user = JSON.parse(localStorage.getItem('firebase'))
+      users.child(user.id).set({
+        name: user.name,
+        image: user.image
+      })
       router.push('home')
     },
     setLogin (state, payload) {

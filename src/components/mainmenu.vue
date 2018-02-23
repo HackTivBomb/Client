@@ -13,7 +13,7 @@
         </div>
         </div>
     </div>
-    <div class="col-md">
+    <!-- <div class="col-md">
         <div class="playboard">
             <p>wanna play?</p>
             <ul>
@@ -23,7 +23,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <div class="col-md">
        <onlineuser/>
     </div>
@@ -47,12 +47,13 @@ export default {
   },
   computed:{
       ...mapState([
-          'dataPlayer'
+          'dataPlayer',
+          'idroom'
       ])
   },
   firebase: {
       rooms : rooms,
-      cekroom : rooms
+      
   },
   methods : {
       joinroom (key,e) {
@@ -64,6 +65,8 @@ export default {
              let id = JSON.parse(localStorage.getItem('firebase')).id
              let name = JSON.parse(localStorage.getItem('firebase')).name
              rooms.child(key).child(id).set({player: name,bom:false})
+             localStorage.setItem('idroom',key)
+             this.$router.push(`/room/${key}`)
           }else {
               alert('penuuhh ciy')
           }

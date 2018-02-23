@@ -3,6 +3,9 @@
   <div class="container btn-go">
     <div @click="signinBtn" class="enjoy-css">I'M READY LET'S GO!</div>
   </div>
+  <audio id="myAudio" autoplay>
+    <source src="https://storage.googleapis.com/storageall/contra.mp3" type="audio/ogg">
+  </audio>
 </div>
 </template>
 
@@ -17,7 +20,7 @@ export default {
     signinBtn () {
       this.signin()
         .then(() => {
-          console.log('ahay')
+          this.$router.push({name: 'HelloWorld'})
         })
         .catch(err => console.log(err))
     }
